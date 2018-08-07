@@ -1,6 +1,9 @@
-
+import parkingLots.ParkingLot
 
 fun main(args: Array<String>){
+
+    val parkingLot: ParkingLot
+
     do {
         var opSel: Int = 0
         println(getMenu(opSel))
@@ -15,6 +18,11 @@ fun main(args: Array<String>){
                     print("Ingrese una opcion: ")
                     val admOp = readLine()!!
 
+                    when(admOp){
+                        "1" -> {
+
+                        }
+                    }
                 }while (admOp != "4")
             }
             "2" -> {

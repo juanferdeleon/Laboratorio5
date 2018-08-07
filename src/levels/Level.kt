@@ -6,20 +6,9 @@ class Level(
         private var lvlId: Int,
         private var lvlName: String,
         private var color: String,
-        private var structure: ArrayList<String>,
-        private var parkingSpots: ArrayList<ParkingSpot>
+        private var structure: MutableList<List<String>>,
+        private var parkingSpots: ArrayList<ParkingSpot> = ArrayList()
 ){
-    fun setLvlId(id: Int){
-        this.lvlId = id
-    }
-
-    fun setLvlName(lvlName: String){
-        this.lvlName = lvlName
-    }
-
-    fun setColor(color: String){
-        this.color = color
-    }
 
     //TODO: setStructure()
 
