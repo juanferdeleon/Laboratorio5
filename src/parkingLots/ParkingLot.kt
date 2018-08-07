@@ -2,11 +2,12 @@ package parkingLots
 
 import java.io.File
 import levels.Level
+import kotlin.collections.ArrayList
 
 class ParkingLot(
-        private var lvls: ArrayList<Level>
+        private var lvls: ArrayList<Level> = ArrayList()
 ){
-    fun createLvl(){
+    fun createLvl() {
 
         print("Nombre: ")
         var lvlName = readLine()!!
@@ -17,15 +18,40 @@ class ParkingLot(
         print("Archivo de estructura: ")
         var structure = readLine()!!
 
-        var lvl = Level(lvlName = lvlName, lvlId = lvlId.toInt(), color = lvlColor, structure = readMap(structure))
+        if (lvls.size != 0){
+            for (lvl in lvls) {
+                if (lvlName == lvl.getLvlName() || lvlId.toInt() == lvl.getLvlId() || lvlColor == lvl.getLvlColor()) {
+                    println("Ya existe un nivel con estas caracteristicas.")
+                }else{
+                    var lvl = Level(lvlId.toInt(), lvlName, lvlColor)
 
-        this.lvls.add(lvl)
+                    if (lvl.setObject(readMap(structure))){
+                        println("Nivel agregado exitosamente!")
+                        print(lvl.toString())
+                        this.lvls.add(lvl)
+                    }else{
+                        println("Existe un error con la estructura del parqueo.")
+                    }
+                }
+
+            }
+        }else{
+            var lvl = Level(lvlId.toInt(), lvlName, lvlColor)
+
+            if (lvl.setObject(readMap(structure))){
+                println("Nivel agregado exitosamente!")
+                print(lvl.toString())
+                this.lvls.add(lvl)
+            }else{
+                println("Existe un error con la estructura del parqueo.")
+            }
+        }
+
     }
 
     fun readMap(userFile: String): MutableList<List<String>>{
 
         var arrayLine: ArrayList<String> = ArrayList()
-        var colCtr: Int = 0
 
         File("$userFile").forEachLine {
             arrayLine.add(it)
@@ -39,4 +65,6 @@ class ParkingLot(
         return structure
 
     }
+
+
 }

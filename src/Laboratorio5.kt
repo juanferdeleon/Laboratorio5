@@ -2,7 +2,7 @@ import parkingLots.ParkingLot
 
 fun main(args: Array<String>){
 
-    val parkingLot: ParkingLot
+    val parkingLot = ParkingLot()
 
     do {
         var opSel: Int = 0
@@ -20,7 +20,7 @@ fun main(args: Array<String>){
 
                     when(admOp){
                         "1" -> {
-
+                            parkingLot.createLvl()
                         }
                     }
                 }while (admOp != "4")
