@@ -19,9 +19,9 @@ fun main(args: Array<String>){
                     val admOp = readLine()!!
 
                     when(admOp){
-                        "1" -> {
-                            parkingLot.createLvl()
-                        }
+                        "1" -> parkingLot.createLvl()
+                        "2" -> parkingLot.deletLevel()
+                        "3" -> parkingLot.showLvls()
                     }
                 }while (admOp != "4")
             }
@@ -31,6 +31,18 @@ fun main(args: Array<String>){
                     print("Ingrese una opcion: ")
                     val usOp = readLine()!!
 
+                    when (usOp){
+                        "1" -> {
+                            print("\nIngrese placa de su vehiculo: ")
+                            var licensePlate = readLine()!!
+                            if (!parkingLot.isParked(licensePlate)){
+                                parkingLot.showAvailableLvls()
+                                print("Seleccione un nivel: ")
+                                var userLvl = readLine()!!
+                                parkingLot.searchLvl(userLvl, licensePlate)
+                            }
+                        }
+                    }
                 }while (usOp != "2")
             }
         }
@@ -41,6 +53,7 @@ fun main(args: Array<String>){
 fun getMenu(opSel: Int): String{
     when (opSel){
         1 -> return """
+
             Menu:
             1. Crear nivel
             2. Eliminar nivel
@@ -48,11 +61,13 @@ fun getMenu(opSel: Int): String{
             4. Salir
         """.trimIndent()
         2 -> return """
+
             Menu:
             1. Ingresar placa
             2. Salir
         """.trimIndent()
         else -> return """
+
             Menu:
             1. Administrador
             2. Conductor

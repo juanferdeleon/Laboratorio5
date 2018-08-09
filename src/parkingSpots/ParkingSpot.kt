@@ -11,6 +11,10 @@ class ParkingSpot(
         this.isOccupied = !isOccupied
     }
 
+    fun getIsOccupied(): Boolean{
+        return this.isOccupied
+    }
+
     fun getParkingId(): String{
         return this.parkingId
     }
@@ -18,6 +22,7 @@ class ParkingSpot(
     fun getRow(): Int{
         return this.row
     }
+
     fun getColumn(): Int{
         return this.column
     }

@@ -9,7 +9,7 @@ class ParkingLot(
 ){
     fun createLvl() {
 
-        print("Nombre: ")
+        print("\nNombre: ")
         var lvlName = readLine()!!
         print("Identificador: ")
         var lvlId = readLine()!!
@@ -19,18 +19,21 @@ class ParkingLot(
         var structure = readLine()!!
 
         if (lvls.size != 0){
-            for (lvl in lvls) {
-                if (lvlName == lvl.getLvlName() || lvlId.toInt() == lvl.getLvlId() || lvlColor == lvl.getLvlColor()) {
+            lvls.forEach {
+                if (lvlName == it.getLvlName() || lvlId.toInt() == it.getLvlId() || lvlColor == it.getLvlColor()) {
                     println("Ya existe un nivel con estas caracteristicas.")
+                    return
                 }else{
                     var lvl = Level(lvlId.toInt(), lvlName, lvlColor)
 
                     if (lvl.setObject(readMap(structure))){
-                        println("Nivel agregado exitosamente!")
+                        println("\nNivel agregado exitosamente!\n")
                         print(lvl.toString())
                         this.lvls.add(lvl)
+                        return
                     }else{
                         println("Existe un error con la estructura del parqueo.")
+                        return
                     }
                 }
 
@@ -39,14 +42,69 @@ class ParkingLot(
             var lvl = Level(lvlId.toInt(), lvlName, lvlColor)
 
             if (lvl.setObject(readMap(structure))){
-                println("Nivel agregado exitosamente!")
+                println("\nNivel agregado exitosamente!\n")
                 print(lvl.toString())
                 this.lvls.add(lvl)
+                return
             }else{
                 println("Existe un error con la estructura del parqueo.")
+                return
             }
         }
 
+    }
+
+    fun deletLevel(){
+
+        print("\nIngrese el identificador del nivel que desea eliminar: ")
+        var deletLevel = readLine()!!
+
+        if (lvls.size != 0){
+            for (lvl in lvls){
+                if(lvl.getLvlId() == deletLevel.toInt()){
+                    lvls.remove(lvl)
+                    print("El nivel se a removido exitosamente!\n")
+                    return
+                }
+            }
+        }else{
+            print("\nAun no existen niveles\n")
+        }
+
+    }
+
+    fun showLvls(){
+        lvls.forEach {
+            print(it.toString())
+        }
+    }
+
+    fun isParked(licensePlate: String): Boolean{
+        for (lvl in lvls){
+            if (lvl.searchCar(licensePlate)){
+                print(lvl.toString())
+                return true
+            }
+        }
+        return false
+    }
+
+    fun showAvailableLvls(){
+        lvls.forEach{
+            if (it.isAvailable()){
+                print(it.toString())
+            }
+        }
+    }
+
+    fun searchLvl(userLvl: String, licensePlate: String){
+        lvls.forEach {
+            if (it.getLvlName() == userLvl){
+                print(it.toString())
+                it.parkCar(licensePlate)
+                return
+            }
+        }
     }
 
     fun readMap(userFile: String): MutableList<List<String>>{
@@ -65,6 +123,5 @@ class ParkingLot(
         return structure
 
     }
-
 
 }

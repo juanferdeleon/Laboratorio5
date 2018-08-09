@@ -7,6 +7,7 @@ class Wall(
     fun getRow(): Int{
         return this.row
     }
+
     fun getColumn(): Int{
         return this.column
     }
